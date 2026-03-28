@@ -5,6 +5,7 @@ import express from "express";
 import { config } from "./config/index.js";
 import { initializeDatabase } from "./config/database.js";
 import authRoutes from "./modules/auth/auth.route.js";
+import docsRoutes from "./modules/docs/docs.route.js";
 import { globalErrorHandler } from "./shared/middlewares/errorHandler.js";
 
 dotenv.config();
@@ -37,6 +38,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api", docsRoutes);
 
 // 404 handler
 app.use((req, res) => {

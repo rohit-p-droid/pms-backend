@@ -1,6 +1,9 @@
 import { config } from "./index.js";
 import { DataSource } from "typeorm";
 import { User } from "../modules/user/entities/user.entity.js";
+import { Workspace } from "../modules/docs/entities/workspace.entity.js";
+import { Node } from "../modules/docs/entities/node.entity.js";
+import { DocumentContent } from "../modules/docs/entities/document-content.entity.js";
 
 const getDatabaseURL = (): string => {
     const dbUrl = config.POSTGRESQL_DB_URL;
@@ -15,7 +18,7 @@ export const AppDataSource = new DataSource({
     url: getDatabaseURL(),
     synchronize: process.env.NODE_ENV !== "production",
     logging: process.env.NODE_ENV === "development",
-    entities: [User],
+    entities: [User, Workspace, Node, DocumentContent],
     migrations: ["src/migrations/**/*.ts"],
     subscribers: ["src/subscribers/**/*.ts"],
     poolSize: 10,
