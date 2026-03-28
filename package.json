@@ -5,8 +5,8 @@
     "private": true,
     "scripts": {
         "dev": "bun --watch src/server.ts",
-        "build": "bun run tsc",
-        "start": "bun run --no-check dist/server.js",
+        "build": "tsc",
+        "start": "node dist/server.js",
         "deploy": "bun run build && bun run start"
     },
     "devDependencies": {

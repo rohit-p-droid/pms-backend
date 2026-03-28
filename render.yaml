@@ -4,8 +4,8 @@ services:
     runtime: node
     runtimeVersion: 22.22.0
     packageManager: bun
-    buildCommand: bun install && bun run build
-    startCommand: bun run start
+    buildCommand: bun install; bunx tsc
+    startCommand: node dist/server.js
     envVars:
       - key: NODE_ENV
         value: production
