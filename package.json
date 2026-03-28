@@ -6,6 +6,8 @@
     "scripts": {
         "dev": "bun --watch src/server.ts",
         "build": "tsc",
+        "prebuild": "echo 'Building...'",
+        "prestart": "bun run build",
         "start": "node dist/server.js",
         "deploy": "bun run build && bun run start"
     },
