@@ -6,6 +6,7 @@ import {
     AuthorizationError,
     ValidationError,
 } from "../../../shared/errors/AppError.js";
+import { deleteRemovedImages } from "../../../shared/utils/imageHelper.js";
 
 const docContentRepo = () => AppDataSource.getRepository(DocumentContent);
 const nodeRepo = () => AppDataSource.getRepository(Node);
@@ -46,6 +47,8 @@ export const documentService = {
         if (!docContent) {
             docContent = docContentRepo().create({ nodeId, content });
         } else {
+            // Clean up images that were removed from the document
+            deleteRemovedImages(docContent.content, content);
             docContent.content = content;
         }
 

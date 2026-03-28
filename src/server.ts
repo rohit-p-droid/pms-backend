@@ -6,7 +6,9 @@ import { config } from "./config/index.js";
 import { initializeDatabase } from "./config/database.js";
 import authRoutes from "./modules/auth/auth.route.js";
 import docsRoutes from "./modules/docs/docs.route.js";
+import uploadRoutes from "./modules/upload/upload.route.js";
 import { globalErrorHandler } from "./shared/middlewares/errorHandler.js";
+import path from "path";
 
 dotenv.config();
 
@@ -38,7 +40,11 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/upload", uploadRoutes);
 app.use("/api", docsRoutes);
+
+// Static files for uploads
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 // 404 handler
 app.use((req, res) => {

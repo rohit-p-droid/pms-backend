@@ -1,12 +1,14 @@
 import { AppDataSource } from "../../../config/database.js";
 import { Node } from "../entities/node.entity.js";
 import { Workspace } from "../entities/workspace.entity.js";
+import { DocumentContent } from "../entities/document-content.entity.js";
 import {
     NotFoundError,
     AuthorizationError,
     ValidationError,
 } from "../../../shared/errors/AppError.js";
 import { IsNull } from "typeorm";
+import { deleteAllImages } from "../../../shared/utils/imageHelper.js";
 
 const nodeRepo = () => AppDataSource.getRepository(Node);
 const workspaceRepo = () => AppDataSource.getRepository(Workspace);
@@ -109,6 +111,14 @@ export const nodeService = {
         });
         if (!node) throw new NotFoundError("Node not found");
         if (node.workspace.userId !== userId) throw new AuthorizationError("Access denied");
+
+        // If this is a DOCUMENT node, clean up any uploaded images referenced in its content
+        if (node.type === "DOCUMENT") {
+            const docContent = await AppDataSource.getRepository(DocumentContent).findOne({ where: { nodeId } });
+            if (docContent?.content) {
+                deleteAllImages(docContent.content);
+            }
+        }
 
         // CASCADE will handle children and document content via DB constraint
         await nodeRepo().remove(node);
