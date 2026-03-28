@@ -59,9 +59,26 @@ const startServer = async (): Promise<void> => {
         await initializeDatabase();
 
         // Start listening
-        const PORT = config.PORT;
-        app.listen(PORT, () => {
-            console.log(`✅ Server running on http://localhost:${PORT}`);
+        const PORT = Number(config.PORT);
+        const server = app.listen(PORT, "0.0.0.0", () => {
+            console.log(`✅ Server running on port ${PORT}`);
+        });
+
+        // Graceful shutdown handlers
+        process.on("SIGTERM", () => {
+            console.log("📍 SIGTERM received, shutting down gracefully...");
+            server.close(() => {
+                console.log("✅ Server closed");
+                process.exit(0);
+            });
+        });
+
+        process.on("SIGINT", () => {
+            console.log("📍 SIGINT received, shutting down gracefully...");
+            server.close(() => {
+                console.log("✅ Server closed");
+                process.exit(0);
+            });
         });
     } catch (error) {
         console.error("❌ Failed to start server:", error);
