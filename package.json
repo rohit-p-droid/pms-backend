@@ -5,8 +5,8 @@
     "private": true,
     "scripts": {
         "dev": "bun --watch src/server.ts",
-        "build": "tsc",
-        "start": "node dist/server.js",
+        "build": "bun run tsc",
+        "start": "bun run --no-check dist/server.js",
         "deploy": "bun run build && bun run start"
     },
     "devDependencies": {
@@ -14,7 +14,8 @@
         "@types/cors": "^2.8.19",
         "@types/express": "^5.0.6",
         "@types/node": "^25.5.0",
-        "ts-node-dev": "^2.0.0"
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.3.3"
     },
     "peerDependencies": {
         "typescript": "^6.0.2"
