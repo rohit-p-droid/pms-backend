@@ -3,5 +3,8 @@ services:
     name: backend
     runtime: node
     runtimeVersion: 22.22.0
-    buildCommand: bun install && bun run build
-    startCommand: bun run start
+    buildCommand: ./render-build.sh
+    startCommand: node dist/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
