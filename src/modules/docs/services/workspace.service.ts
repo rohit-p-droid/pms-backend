@@ -19,7 +19,6 @@ function buildTree(nodes: Node[]): any[] {
             type: node.type,
             name: node.name,
             parentId: node.parentId,
-            description: node.description,
             workspaceId: node.workspaceId,
             ordering: node.ordering,
             createdAt: node.createdAt,
