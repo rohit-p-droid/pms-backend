@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-echo "==> Installing dependencies..."
+echo "==> Installing dependencies with bun..."
 bun install
 
 echo "==> Building TypeScript..."
-bun run build
+bunx tsc
 
 echo "==> Build completed successfully"
