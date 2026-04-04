@@ -23,6 +23,9 @@ export class User {
     @Column({ type: "boolean", default: true })
     isActive!: boolean;
 
+    @Column({ type: "text", nullable: true })
+    encryptedSecretKey!: string | null;
+
     @CreateDateColumn({ type: "timestamp" })
     createdAt!: Date;
 

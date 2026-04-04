@@ -4,6 +4,8 @@ import { User } from "../modules/user/entities/user.entity.js";
 import { Workspace } from "../modules/docs/entities/workspace.entity.js";
 import { Node } from "../modules/docs/entities/node.entity.js";
 import { DocumentContent } from "../modules/docs/entities/document-content.entity.js";
+import { PasswordFolder } from "../modules/password/entities/password-folder.entity.js";
+import { PasswordCredential } from "../modules/password/entities/password-credential.entity.js";
 
 const getDatabaseURL = (): string => {
     const dbUrl = config.POSTGRESQL_DB_URL;
@@ -18,7 +20,7 @@ export const AppDataSource = new DataSource({
     url: getDatabaseURL(),
     synchronize: process.env.NODE_ENV !== "production",
     logging: process.env.NODE_ENV === "development",
-    entities: [User, Workspace, Node, DocumentContent],
+    entities: [User, Workspace, Node, DocumentContent, PasswordFolder, PasswordCredential],
     migrations: ["src/migrations/**/*.ts"],
     subscribers: ["src/subscribers/**/*.ts"],
     poolSize: 10,

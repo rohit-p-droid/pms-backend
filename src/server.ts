@@ -7,6 +7,7 @@ import { initializeDatabase } from "./config/database.js";
 import authRoutes from "./modules/auth/auth.route.js";
 import docsRoutes from "./modules/docs/docs.route.js";
 import uploadRoutes from "./modules/upload/upload.route.js";
+import passwordRoutes from "./modules/password/password.route.js";
 import { globalErrorHandler } from "./shared/middlewares/errorHandler.js";
 import path from "path";
 
@@ -41,6 +42,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/passwords", passwordRoutes);
 app.use("/api", docsRoutes);
 
 // Static files for uploads

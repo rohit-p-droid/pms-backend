@@ -36,11 +36,22 @@ export const userResponseSchema = z.object({
   isActive: z.boolean(),
   createdAt: z.date(),
   updatedAt: z.date(),
+  encryptedSecretKey: z.string().nullable().optional(),
 });
 
 export const authResponseSchema = z.object({
   access_token: z.string(),
   user: userResponseSchema,
+});
+
+export const updateSecretKeySchema = z.object({
+  encryptedSecretKey: z.string().min(1, "Encrypted Secret Key is required"),
+});
+
+export const changePasswordSchema = z.object({
+  oldPassword: z.string(),
+  newPassword: z.string().min(8, "New password must be at least 8 characters"),
+  newEncryptedSecretKey: z.string().nullable().optional(),
 });
 
 // Infer types from schemas for TypeScript

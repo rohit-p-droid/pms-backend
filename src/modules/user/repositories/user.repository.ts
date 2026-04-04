@@ -42,6 +42,13 @@ export class UserRepository {
     }
 
     /**
+     * Save an existing user entity instance
+     */
+    async save(user: User): Promise<User> {
+        return this.repository.save(user);
+    }
+
+    /**
      * Update user
      * @param id - User ID
      * @param userData - Data to update

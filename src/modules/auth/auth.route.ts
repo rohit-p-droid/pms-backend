@@ -11,5 +11,8 @@ router.post("/login", asyncHandler((req, res) => authController.login(req, res))
 
 // Protected routes
 router.get("/me", authMiddleware, asyncHandler((req, res) => authController.getMe(req, res)));
+router.post("/verify-password", authMiddleware, asyncHandler((req, res) => authController.verifyPassword(req, res)));
+router.patch("/secret-key", authMiddleware, asyncHandler((req, res) => authController.updateSecretKey(req, res)));
+router.patch("/change-password", authMiddleware, asyncHandler((req, res) => authController.changePassword(req, res)));
 
 export default router;
